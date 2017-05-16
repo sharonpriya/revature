@@ -1,15 +1,12 @@
 package movietest;
-
 import java.sql.SQLException;
-
-public class testaddmovie {
-
+public class testdao 
+{
 	public static void main(String[] args) throws ClassNotFoundException, SQLException
 	{
-		
-		String movnam = "newmovie";
-		addmovie.insert(movnam);
+		String movnam = "daomovie";
+		dao.insert(movnam);
+		String movnam1="newmovie";
+		dao.delete(movnam1);
 	}
-
 }
- 

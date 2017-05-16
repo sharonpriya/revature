@@ -9,19 +9,32 @@ package movietest;
 
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
-
+import javax.sql.DataSource;
+ import org.apache.commons.dbcp2.BasicDataSource;
+import org.springframework.jdbc.core.JdbcTemplate;
 public class conncetiondb
 {
-	public static Connection connect() throws ClassNotFoundException, SQLException 
+	
+	 public static JdbcTemplate getJdbcTemplate() {
+	        JdbcTemplate jdbcTemplate = new JdbcTemplate();
+	        jdbcTemplate.setDataSource(getDataSource());
+	        return jdbcTemplate;
+	    }
+	 
+	    public static DataSource getDataSource() {
+	        BasicDataSource ds = new BasicDataSource();
+	        ds.setDriverClassName("com.mysql.jdbc.Driver");
+	        ds.setUrl("jdbc:mysql://localhost:3306/sharon");
+	        ds.setUsername("root");
+	        ds.setPassword("enter");
+	        return ds;
+	    }
+	 public static Connection connect() throws ClassNotFoundException, SQLException 
 	{
-		Class.forName("com.mysql.jdbc.Driver");
-		String url = "jdbc:mysql://localhost:3306/sharon";
-		String username = "root";
-		String password = "enter";
-		Connection con = DriverManager.getConnection(url, username, password);
-		return(con);
+		 DataSource dataSource = getDataSource();
+	        Connection con = dataSource.getConnection();
+	        	return (con);
 	}
 
 }
